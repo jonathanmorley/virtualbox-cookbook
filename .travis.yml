@@ -11,8 +11,11 @@ addons:
     packages:
       - linux-headers-`uname -r`
       - virtualbox-4.3
-      - vagrant
       - chefdk
+
+before_install:
+  - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
+  - sudo dpkg -i vagrant_1.8.4_x86_64.deb
 
 install: echo "skip bundle install"
 
