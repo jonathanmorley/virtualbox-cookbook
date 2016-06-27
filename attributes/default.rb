@@ -17,16 +17,23 @@
 # limitations under the License.
 #
 
+default['virtualbox']['url'] = case node['platform_family']
+                               when 'mac_os_x'
+                                 'http://download.virtualbox.org/virtualbox/4.2.12/VirtualBox-4.2.12-84980-OSX.dmg'
+                               when 'windows'
+                                 'http://download.virtualbox.org/virtualbox/4.2.12/VirtualBox-4.2.12-84980-Win.exe'
+                               end
 
-default['virtualbox']['url'] = ''
-default['virtualbox']['version'] = ''
+default['virtualbox']['version'] = case node['platform_family']
+                                   when 'windows'
+                                     Vbox::Helpers.vbox_version(node['virtualbox']['url'])
+                                   when 'debian', 'rhel', 'fedora'
+                                     '4.3'
+                                   end
 
-case node['platform_family']
-when 'mac_os_x'
-  default['virtualbox']['url'] = 'http://download.virtualbox.org/virtualbox/4.2.12/VirtualBox-4.2.12-84980-OSX.dmg'
-when 'windows'
-  default['virtualbox']['url'] = 'http://download.virtualbox.org/virtualbox/4.2.12/VirtualBox-4.2.12-84980-Win.exe'
-  default['virtualbox']['version'] = Vbox::Helpers.vbox_version(node['virtualbox']['url'])
-when 'debian', 'rhel', 'fedora'
-  default['virtualbox']['version'] = '4.3'
-end
+default['virtualbox']['package_gpgkey_url'] = value_for_platform(
+  debian: {
+    '>= 8' => 'http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc',
+  },
+  default: 'http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc'
+)

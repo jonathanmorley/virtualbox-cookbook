@@ -46,21 +46,28 @@ when 'debian'
 
   apt_repository 'oracle-virtualbox' do
     uri 'http://download.virtualbox.org/virtualbox/debian'
-    key 'http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc'
+    key node['virtualbox']['package_gpgkey_url']
     distribution node['lsb']['codename']
     components ['contrib']
   end
 
+  package "linux-headers-#{node['kernel']['release']}"
   package "virtualbox-#{node['virtualbox']['version']}"
   package 'dkms'
 
 when 'rhel', 'fedora'
 
   yum_repository 'oracle-virtualbox' do
-    description "#{node['platform_family']} $releasever - $basearch - Virtualbox" 
+    description "#{node['platform_family']} $releasever - $basearch - Virtualbox"
     baseurl "http://download.virtualbox.org/virtualbox/rpm/#{node['platform_family']}/$releasever/$basearch"
     gpgcheck true
-    gpgkey 'http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc'
+    gpgkey node['virtualbox']['package_gpgkey_url']
+  end
+
+  package 'gcc'
+
+  package 'kernel-devel' do
+    version node['kernel']['release'].sub(".#{node['kernel']['machine']}", '')
   end
 
   package "VirtualBox-#{node['virtualbox']['version']}"
