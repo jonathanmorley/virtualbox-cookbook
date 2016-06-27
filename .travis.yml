@@ -6,8 +6,10 @@ addons:
   apt:
     sources:
       - chef-stable-precise
+      - sourceline: 'deb http://download.virtualbox.org/virtualbox/debian contrib'
+        key_url: 'http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc'
     packages:
-      - virtualbox
+      - virtualbox-4.3
       - vagrant
       - chefdk
 
