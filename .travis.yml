@@ -1,7 +1,7 @@
 sudo: required
 dist: trusty
 
-# install the stable release chef-dk.
+# install the stable release chefdk.
 addons:
   apt:
     sources:
