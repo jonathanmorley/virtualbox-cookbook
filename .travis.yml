@@ -9,6 +9,7 @@ addons:
       - sourceline: 'deb http://download.virtualbox.org/virtualbox/debian trusty contrib'
         key_url: 'http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc'
     packages:
+      - linux-headers-`uname -r`
       - virtualbox-4.3
       - vagrant
       - chefdk
