@@ -10,7 +10,7 @@ addons:
         key_url: 'http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc'
     packages:
       - linux-headers-`uname -r`
-      - virtualbox-4.3
+      - virtualbox-5.0
       - chefdk
 
 before_install:
