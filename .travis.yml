@@ -6,16 +6,8 @@ addons:
   apt:
     sources:
       - chef-stable-precise
-      - sourceline: 'deb http://download.virtualbox.org/virtualbox/debian trusty contrib'
-        key_url: 'http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc'
     packages:
-      - linux-headers-`uname -r`
-      - virtualbox-5.0
       - chefdk
-
-before_install:
-  - wget https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
-  - sudo dpkg -i vagrant_1.8.4_x86_64.deb
 
 install: echo "skip bundle install"
 
@@ -29,4 +21,3 @@ script:
   - /opt/chefdk/embedded/bin/rubocop
   - /opt/chefdk/embedded/bin/bundle install
   - /opt/chefdk/embedded/bin/bundle exec rspec spec
-  - /opt/chefdk/embedded/bin/chef exec kitchen test --log-level debug
