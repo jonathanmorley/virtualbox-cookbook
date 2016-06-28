@@ -18,6 +18,6 @@ before_script:
 script:
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/rubocop --version
-  - /opt/chefdk/embedded/bin/rubocop
+  - /opt/chefdk/embedded/bin/rubocop --config .rubocop_todo.yml
   - /opt/chefdk/embedded/bin/bundle install
   - /opt/chefdk/embedded/bin/bundle exec rspec spec
